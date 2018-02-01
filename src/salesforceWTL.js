@@ -31,6 +31,8 @@ var SalesforceWTL = {
 
         /**
          * Create salesforce iframe for form
+         *
+         * @return {Object} Iframe DOM Element
          */
         function _createFakeIframe() {
             var iframe = document.createElement('iframe');
@@ -47,22 +49,26 @@ var SalesforceWTL = {
 
         /**
          * Create salesforce POST form
+         *
+         * @param  {Object} iframe Iframe DOM Element
+         * @return {Object}        Form DOM Element
          */
         function _createFakeForm(iframe) {
             var form = document.createElement('form');
-            form.name = "sfwtlform";
-            form.id = "sfwtlform";
+            form.name = 'sfwtlform';
+            form.id = 'sfwtlform';
             form.action = params.action;
-            form.method = "POST";
-            form.target = "sfwtlframe";
-            form.style.display = "none";
-            form.setAttribute( 'data-sent', false );
-            document.body.appendChild( form );
+            form.method = 'POST';
+            form.target = 'sfwtlframe';
+            form.style.display = 'none';
+            form.setAttribute('data-sent', false);
+            document.body.appendChild(form);
             return form;
         }
 
         /**
          * Map existing form fields with specified name
+         *
          * @param  {Object} form The salesforce fake form
          */
         function _mapFields(form) {
@@ -78,11 +84,11 @@ var SalesforceWTL = {
                     var originalName = originalForm.elements[i].name;
                     var value = originalForm.elements[i].value;
                     if (params.mapping[originalName] !== undefined) {
-                        var input = document.createElement("input");
+                        var input = document.createElement('input');
                         var sfName = params.mapping[originalName];
                         input.id = sfName;
                         input.name = sfName;
-                        input.type = "hidden";
+                        input.type = 'hidden';
                         input.value = _executeDataTransform( sfName, value );
                         form.appendChild(input);
                     }
@@ -93,11 +99,11 @@ var SalesforceWTL = {
                     if ( originalForm.elements[i].type == 'checkbox' && originalForm.elements[i].checked == false ) continue;
                     var value = originalForm.elements[i].value;
                     var name = originalForm.elements[i].name;
-                    var input = document.createElement("input");
+                    var input = document.createElement('input');
                     input.id = name;
                     input.name = name;
                     input.value = _executeDataTransform( name, value );
-                    input.type = "text";
+                    input.type = 'text';
                     form.appendChild(input);
                 }
             }
@@ -122,12 +128,12 @@ var SalesforceWTL = {
          * @param  {Object} form The salesforce fake form
          */
         function _appendAdditionalFields(form) {
-            if (params.hasOwnProperty("additionalFields")) {
+            if (params.hasOwnProperty('additionalFields')) {
                 for(var name in params.additionalFields) {
-                    var input = document.createElement("input");
+                    var input = document.createElement('input');
                     input.id = name;
                     input.name = name;
-                    input.type = "hidden";
+                    input.type = 'hidden';
                     input.value = params.additionalFields[name];
                     form.appendChild(input);
                 }
@@ -159,25 +165,25 @@ var SalesforceWTL = {
             var sfForm = _createFakeForm( sfIframe );
 
             if (params.hasOwnProperty('directSubmit') && params.directSubmit === true) {
-                _mapFields( sfForm );
-                _appendAdditionalFields( sfForm );
+                _mapFields(sfForm);
+                _appendAdditionalFields(sfForm);
 
                 sfForm.submit();
 
                 var originalForm = document.getElementById( params.formId );
-                originalForm.setAttribute( 'data-salesforcesent', true );
+                originalForm.setAttribute('data-salesforcesent', true);
 
             } else {
-                document.getElementById(params.formId).addEventListener("submit", function(event) {
+                document.getElementById(params.formId).addEventListener('submit', function(event) {
 
-                    _mapFields( sfForm );
-                    _appendAdditionalFields( sfForm );
+                    _mapFields(sfForm);
+                    _appendAdditionalFields(sfForm);
 
                     event.preventDefault();
                     sfForm.submit();
 
-                    var originalForm = document.getElementById( params.formId );
-                    originalForm.setAttribute( 'data-salesforcesent', true );
+                    var originalForm = document.getElementById(params.formId);
+                    originalForm.setAttribute('data-salesforcesent', true);
 
                 });
             }

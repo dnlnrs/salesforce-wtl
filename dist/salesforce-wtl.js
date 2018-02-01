@@ -1,7 +1,7 @@
 /*
  *
  * Copyright (c) 2018 Daniele Lenares (https://github.com/dnlnrs)
- * Licensed under GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+ * Licensed under GPL-3.0 (https://opensource.org/licenses/GPL-3.0) license.
  *
  * Version 1.0.0
  *

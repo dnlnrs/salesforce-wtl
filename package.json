@@ -1,0 +1,22 @@
+{
+  "name": "salesforce-wtl",
+  "version": "1.0.0",
+  "description": "Salesforce WebToLead - Website form to Salesforce platform",
+  "main": "src/salesforceWTL.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnlnrs/salesforce-wtl.git"
+  },
+  "keywords": [
+    "salesforce"
+  ],
+  "author": "Daniele Lenares <daniele.lenares@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dnlnrs/salesforce-wtl/issues"
+  },
+  "homepage": "https://github.com/dnlnrs/salesforce-wtl#readme"
+}
